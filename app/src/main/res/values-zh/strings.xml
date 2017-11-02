@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="full_path">完整路径</string>
+    <string name="hide_it">隐藏这个目录</string>
+
+    <string name="confirm_title">从相册中隐藏这个目录</string>
+    <string name="confirm_message">本应用会在该目录中创建一个「.nomedia」标记，让相册不要索引这个路径。\n\n该操作不会立即生效。你可能需要等几分钟来让系统检测到标记并更新数据库。\n\n由于一些复杂的技术限制，你无法撤销这个操作。</string>
+    <string name="confirm_cancel">取消</string>
+    <string name="confirm_ok">隐藏这个目录</string>
+
+</resources>
