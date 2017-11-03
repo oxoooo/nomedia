@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore.Images.Media;
 
 import java.io.File;
@@ -46,10 +47,15 @@ class MediaStoreUtils {
                 Media.DATE_ADDED + " DESC");
 
         final List<Image> images = new ArrayList<>();
+        final File root = Environment.getExternalStorageDirectory();
 
         if (cursor.moveToFirst()) {
             do {
-                images.add(Image.fromCursor(cursor));
+                final Image image = Image.fromCursor(cursor);
+                if (image.getParentFile().equals(root)) {
+                    continue;
+                }
+                images.add(image);
             } while (cursor.moveToNext());
         }
 
