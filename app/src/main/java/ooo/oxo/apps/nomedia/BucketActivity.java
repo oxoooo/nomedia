@@ -60,7 +60,7 @@ public class BucketActivity extends AppCompatActivity {
         imagesView.setLayoutManager(new GridLayoutManager(this, 3));
         imagesView.setAdapter(imagesAdapter);
 
-        imagesAdapter.setImages(MediaStoreUtils.getImages(this, bucket.bucketId, 10));
+        imagesAdapter.setImages(MediaStoreUtils.getImages(this, bucket.bucketId, 30));
     }
 
     private void hideIt(File directory) {
