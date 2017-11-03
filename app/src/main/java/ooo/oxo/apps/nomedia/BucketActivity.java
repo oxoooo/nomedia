@@ -23,13 +23,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
 import java.io.File;
-import java.io.IOException;
 
 public class BucketActivity extends AppCompatActivity {
 
@@ -70,29 +68,11 @@ public class BucketActivity extends AppCompatActivity {
                 .setTitle(R.string.confirm_title)
                 .setMessage(R.string.confirm_message)
                 .setNegativeButton(R.string.confirm_cancel, null)
-                .setPositiveButton(R.string.confirm_ok, (dialog, which) -> confirmHideIt(directory))
+                .setPositiveButton(R.string.confirm_ok, (dialog, which) -> {
+                    MediaStoreUtils.hide(this, directory);
+                    finish();
+                })
                 .show();
-    }
-
-    private void confirmHideIt(File directory) {
-        final File nomedia = new File(directory, ".nomedia");
-        if (createNomedia(nomedia)) {
-            MediaStoreUtils.scanFile(this, nomedia);
-            finish();
-        }
-    }
-
-    private boolean createNomedia(File nomedia) {
-        if (nomedia.exists()) {
-            return true;
-        }
-
-        try {
-            return nomedia.createNewFile();
-        } catch (IOException e) {
-            Log.e(TAG, "Failed to create file", e);
-            return false;
-        }
     }
 
 }
