@@ -23,7 +23,6 @@ import android.database.ContentObserver;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements BucketsAdapter.On
     private static final int REQUEST_WRITE = 1;
 
     private BucketsAdapter bucketsAdapter;
-    private SwipeRefreshLayout refresherView;
 
     private boolean granted;
 
@@ -64,10 +62,6 @@ public class MainActivity extends AppCompatActivity implements BucketsAdapter.On
         final RecyclerView bucketsView = findViewById(R.id.buckets);
         bucketsView.setLayoutManager(new GridLayoutManager(this, 2));
         bucketsView.setAdapter(bucketsAdapter);
-
-        refresherView = findViewById(R.id.refresher);
-        refresherView.setColorSchemeResources(R.color.colorAccent);
-        refresherView.setOnRefreshListener(this::reload);
 
         if (ActivityCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) == PERMISSION_GRANTED) {
             granted = true;
@@ -110,12 +104,10 @@ public class MainActivity extends AppCompatActivity implements BucketsAdapter.On
 
     private void reload() {
         if (!granted) {
-            refresherView.setRefreshing(false);
             return;
         }
 
         bucketsAdapter.setBuckets(MediaStoreUtils.getBuckets(this));
-        refresherView.setRefreshing(false);
     }
 
     @Override
